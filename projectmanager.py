@@ -8,4 +8,4 @@ class ProjectManager:
         os.system("git clone " + self.src + " " + path)
 
     def getProjectName(self):
-        return self.src.split("/")[1].split(".")[0]
+        return self.src.split("/")[-1].split(".")[0]

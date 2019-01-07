@@ -7,7 +7,7 @@ DEFAULT_GIT_SRC = "git@git.eu-de.bluemix.net:alessiosaltarin/MobilePwa.git"
 # Output directory for the Angular build
 OUTPUT_PATH = "www"
 
-#CORDOVA PROJECT
+# CORDOVA PROJECT
 CORDOVA_CONFIG_PATH = "config.xml"
 CORDOVA_PLATFORMS = ["android", "ios", "browser"]
 CORDOVA_PROJECT_NAME = "CordovaMobilePwa"

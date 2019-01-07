@@ -21,10 +21,9 @@ class AngularSetup:
 
         io.writeToFile(filePath, content)
 
-    
     def updateOutputPath(self):
         print("Updating angular.json")
-        
+
         projectName = self.getProjectName()
         print("Project name detected: " + projectName)
 
@@ -41,8 +40,7 @@ class AngularSetup:
         content = io.readFromFile(constants.ANGULAR_JSON_PATH)
         jsonContent = json.loads(content)
         keys = jsonContent["projects"].keys()
-        projectName = next(iter(keys))
-        return projectName
+        return next(iter(keys))
 
     def build(self):
         print("Installing node modules")
