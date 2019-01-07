@@ -13,3 +13,4 @@ CORDOVA_PLATFORMS = ["android", "ios", "browser"]
 CORDOVA_PROJECT_NAME = "CordovaMobilePwa"
 CORDOVA_WIDGET_ID = "io.cordova.mobilepwa"
 CORDOVA_AUTHOR = "Bocconi dev team"
+CORDOVA_ICON_PATH = "www/assets/icons/icon-512x512.png"

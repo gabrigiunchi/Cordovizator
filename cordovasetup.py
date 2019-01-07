@@ -6,6 +6,11 @@ import iomanager as io
 import xml.etree.ElementTree as ET
 
 class CordovaSetup:
+
+        def setup(self):
+                self.updateGitIgnore()
+                self.updateProjectInfo()
+
         def installPlatforms(self):
                 for p in constants.CORDOVA_PLATFORMS:
                         os.system("cordova platforms add " + p)
@@ -38,9 +43,15 @@ class CordovaSetup:
 
                 for child in root.findall(f"{namespace}author"):
                         child.text = constants.CORDOVA_AUTHOR
+                        child.attrib.pop("email")
+                        child.attrib.pop("href")
 
-                for c in root.findall(f"{namespace}description"):
-                        root.remove(c)
+                for child in root.findall(f"{namespace}description"):
+                        root.remove(child)
+
+                icon = ET.Element("icon")
+                icon.attrib["src"] = constants.CORDOVA_ICON_PATH
+                root.insert(0, icon)
 
                 tree.write(constants.CORDOVA_CONFIG_PATH, xml_declaration="true", encoding="utf-8", method="xml")
 

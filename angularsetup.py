@@ -4,6 +4,11 @@ import json
 import os
 
 class AngularSetup:
+
+    def setup(self):
+        self.updateIndexHTML()
+        self.updateOutputPath()
+
     def updateIndexHTML(self):
         print("Updating index.html")
 
