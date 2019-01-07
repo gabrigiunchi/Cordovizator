@@ -3,6 +3,7 @@ from shutil import copyfile, rmtree
 import random
 import constants
 import iomanager as io
+import xml.etree.ElementTree as ET
 
 class CordovaSetup:
         def installPlatforms(self):
@@ -20,14 +21,35 @@ class CordovaSetup:
                 io.appendToFile(constants.GIT_IGNORE_PATH, content)
                 print("done updating .gitignore")
 
-        def copyConfigXML(self):
+        def updateProjectInfo(self):
+                self._copyConfigXML()
+
+                ET.register_namespace("", "http://www.w3.org/ns/widgets")
+                tree = ET.parse(constants.CORDOVA_CONFIG_PATH)
+                root = tree.getroot()
+
+                namespace = "{http://www.w3.org/ns/widgets}"
+
+                for child in root.iter(f"{namespace}widget"):
+                        child.attrib["id"] = constants.CORDOVA_WIDGET_ID
+
+                for child in root.iter(f"{namespace}name"):
+                        child.text = constants.CORDOVA_PROJECT_NAME
+
+                for child in root.findall(f"{namespace}author"):
+                        child.text = constants.CORDOVA_AUTHOR
+
+                for c in root.findall(f"{namespace}description"):
+                        root.remove(c)
+
+                tree.write(constants.CORDOVA_CONFIG_PATH, xml_declaration="true", encoding="utf-8", method="xml")
+
+        def _copyConfigXML(self):
                 randomName = str(random.randint(1, 1000000))
                 print("Creating cordova project in folder " + randomName)
                 os.system("cordova create " + randomName)
                 configPath = "./" + randomName + "/" + constants.CORDOVA_CONFIG_PATH
-                print("Copying config.xml")
+                print("Copying cordova configuration file")
                 copyfile(configPath, constants.CORDOVA_CONFIG_PATH)
                 print("Deleting folder " + randomName)
                 rmtree(randomName)
-
-        def updateProjectInfo(self):

@@ -3,9 +3,9 @@ import cordovasetup
 import projectmanager as pm
 import sys
 import angularsetup
+import constants
 
-src = "git@git.eu-de.bluemix.net:alessiosaltarin/MobilePwa.git"
-directory = "../"
+src = constants.DEFAULT_GIT_SRC
 
 if sys.argv.__len__() == 2:
     src = sys.argv[1]
@@ -16,7 +16,7 @@ if sys.argv.__len__() > 2:
     directory = sys.argv[2]
 
 else:
-    directory += "../" + projectManager.getProjectName()
+    directory = "../" + projectManager.getProjectName()
 
 projectManager.cloneProject(directory)
 os.chdir(directory)
@@ -27,7 +27,7 @@ cordovaSetup = cordovasetup.CordovaSetup()
 angularSetup.updateIndexHTML()
 angularSetup.updateOutputPath()
 
-cordovaSetup.copyConfigXML()
+cordovaSetup.updateProjectInfo()
 cordovaSetup.updateGitIgnore()
 
 angularSetup.build()

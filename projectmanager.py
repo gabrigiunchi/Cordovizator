@@ -5,6 +5,8 @@ class ProjectManager:
         self.src = src
 
     def cloneProject(self, path):
+        print(self.src)
+        print(path)
         os.system("git clone " + self.src + " " + path)
 
     def getProjectName(self):
