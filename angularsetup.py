@@ -2,22 +2,31 @@ import constants
 import iomanager as io
 import json
 import os
+from shutil import copytree
 
 class AngularSetup:
+
+    def __init__(self, directory):
+        self.destDirectory = directory
 
     def setup(self):
         self.updateIndexHTML()
         self.updateOutputPath()
+        self.copyAndroidIconsFolder()
+
+    def copyAndroidIconsFolder(self):
+        print("Copying android icons")
+        dest = self.destDirectory + "/" + constants.ANDROID_ICON_DEST_PATH
+        copytree(constants.ANDROID_ICON_SOURCE_PATH, dest)
 
     def updateIndexHTML(self):
         print("Updating index.html")
 
-        filePath = constants.INDEX_HTML_PATH
+        filePath = self.destDirectory + "/" + constants.INDEX_HTML_PATH
 
         content = io.readFromFile(filePath)
         content = content.replace("""<base href="/">""", """<base href="./">""")
-        content = content.replace("<head>\n", 
-            """<head>\n\t<script type="text/javascript" charset="utf-8" src="cordova.js"></script>\n""")
+        content = content.replace("<head>\n", """<head>\n\t<script type="text/javascript" charset="utf-8" src="cordova.js"></script>\n""")
 
         io.writeToFile(filePath, content)
 
@@ -27,7 +36,7 @@ class AngularSetup:
         projectName = self.getProjectName()
         print("Project name detected: " + projectName)
 
-        filePath = constants.ANGULAR_JSON_PATH
+        filePath = self.destDirectory + "/" + constants.ANGULAR_JSON_PATH
 
         print("Changin output path to " + constants.OUTPUT_PATH)
         jsonContent = json.loads(io.readFromFile(filePath))
@@ -37,7 +46,7 @@ class AngularSetup:
         io.writeToFile(filePath, s)
 
     def getProjectName(self):
-        content = io.readFromFile(constants.ANGULAR_JSON_PATH)
+        content = io.readFromFile(self.destDirectory + "/" + constants.ANGULAR_JSON_PATH)
         jsonContent = json.loads(content)
         keys = jsonContent["projects"].keys()
         return next(iter(keys))
