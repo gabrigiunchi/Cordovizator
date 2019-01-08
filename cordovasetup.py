@@ -21,12 +21,12 @@ class CordovaSetup:
         os.system("cordova build")
 
     def updateGitIgnore(self):
+        print("Updating .gitignore")
         content = "\n\n#CORDOVA"
         for entry in constants.GIT_IGNORE_ENTRIES:
             content += "\n" + entry
 
         io.appendToFile(self.destDirectory + "/" + constants.GIT_IGNORE_PATH, content)
-        print("done updating .gitignore")
 
     def copyConfigFile(self):
         print("Copying cordova configuration file")

@@ -14,9 +14,16 @@ class AngularSetup:
         self.updateOutputPath()
         self.copyAndroidIconsFolder()
         self.copyIosIconsFolder()
+        self.removeYarn()
+
+    def removeYarn(self):
+        print("Removing yarn")
+        filePath = self.destDirectory + "/yarn.lock"
+        if os.path.exists(filePath):
+            os.remove(filePath)
 
     def copyAndroidIconsFolder(self):
-        print("Copying android icons")
+        print("Copying Android icons")
         dest = self.destDirectory + "/" + constants.ANDROID_ICON_DEST_PATH
 
         if os.path.isdir(dest):
@@ -54,7 +61,7 @@ class AngularSetup:
 
         filePath = self.destDirectory + "/" + constants.ANGULAR_JSON_PATH
 
-        print("Changin output path to " + constants.ANGULAR_OUTPUT_PATH)
+        print("Changing output path to " + constants.ANGULAR_OUTPUT_PATH)
         jsonContent = json.loads(io.readFromFile(filePath))
         jsonContent["projects"][projectName]["architect"]["build"]["options"]["outputPath"] = constants.ANGULAR_OUTPUT_PATH
         s = json.dumps(jsonContent, indent=4).replace('\'', "\"").replace("True", "true").replace("False", "false")
