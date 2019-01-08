@@ -17,7 +17,11 @@ class AngularSetup:
     def copyAndroidIconsFolder(self):
         print("Copying android icons")
         dest = self.destDirectory + "/" + constants.ANDROID_ICON_DEST_PATH
-        copytree(constants.ANDROID_ICON_SOURCE_PATH, dest)
+        if os.path.isdir(dest):
+            print("Android icons already exist")
+        
+        else:
+            copytree(constants.ANDROID_ICON_SOURCE_PATH, dest)
 
     def updateIndexHTML(self):
         print("Updating index.html")
@@ -38,9 +42,9 @@ class AngularSetup:
 
         filePath = self.destDirectory + "/" + constants.ANGULAR_JSON_PATH
 
-        print("Changin output path to " + constants.OUTPUT_PATH)
+        print("Changin output path to " + constants.ANGULAR_OUTPUT_PATH)
         jsonContent = json.loads(io.readFromFile(filePath))
-        jsonContent["projects"][projectName]["architect"]["build"]["options"]["outputPath"] = constants.OUTPUT_PATH
+        jsonContent["projects"][projectName]["architect"]["build"]["options"]["outputPath"] = constants.ANGULAR_OUTPUT_PATH
         s = json.dumps(jsonContent, indent=4).replace('\'', "\"").replace("True", "true").replace("False", "false")
 
         io.writeToFile(filePath, s)
