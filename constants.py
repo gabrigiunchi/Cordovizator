@@ -12,7 +12,9 @@ CORDOVA_CONFIG_FILENAME = "config.xml"
 CORDOVA_CONFIG_SOURCE_PATH = "assets/" + CORDOVA_CONFIG_FILENAME
 CORDOVA_CONFIG_DEST_PATH = CORDOVA_CONFIG_FILENAME
 
-CORDOVA_PLATFORMS = ["android", "ios", "browser"]
+CORDOVA_PLATFORMS = ["android", "ios"]
 
 ANDROID_ICON_SOURCE_PATH = "assets/icons/android"
-ANDROID_ICON_DEST_PATH = "src/assets/android"
+ANDROID_ICON_DEST_PATH = "src/assets/icons/android"
+IOS_ICON_SOURCE_PATH = "assets/icons/ios"
+IOS_ICON_DEST_PATH = "src/assets/icons/ios"

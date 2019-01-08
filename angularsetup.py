@@ -13,15 +13,27 @@ class AngularSetup:
         self.updateIndexHTML()
         self.updateOutputPath()
         self.copyAndroidIconsFolder()
+        self.copyIosIconsFolder()
 
     def copyAndroidIconsFolder(self):
         print("Copying android icons")
         dest = self.destDirectory + "/" + constants.ANDROID_ICON_DEST_PATH
+
         if os.path.isdir(dest):
             print("Android icons already exist")
         
         else:
             copytree(constants.ANDROID_ICON_SOURCE_PATH, dest)
+
+    def copyIosIconsFolder(self):
+        print("Copying IOS icons")
+        dest = self.destDirectory + "/" + constants.IOS_ICON_DEST_PATH
+
+        if os.path.isdir(dest):
+            print("IOS icons already exist")
+        
+        else:
+            copytree(constants.IOS_ICON_SOURCE_PATH, dest)
 
     def updateIndexHTML(self):
         print("Updating index.html")
